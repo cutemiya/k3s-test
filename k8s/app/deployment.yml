@@ -26,8 +26,8 @@ spec:
     spec:
       containers:
       - name: flight-app
-        image: docker.io/library/flight-search-app:latest
-        imagePullPolicy: Always
+        image: flight-search-app:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 4000
           name: http
