@@ -1,24 +1,60 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: flight-app-ingress
+#   namespace: flight-search
+#   annotations:
+#     # Traefik специфичные аннотации
+#     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+#     traefik.ingress.kubernetes.io/router.middlewares: flight-search-compress@kubernetescrd
+#     traefik.ingress.kubernetes.io/router.tls: "true"
+#     # Round Robin балансировка (по умолчанию в Traefik)
+#     traefik.ingress.kubernetes.io/service-loadbalancer-method: roundrobin
+#     # SSL/TLS
+#     cert-manager.io/cluster-issuer: "letsencrypt-prod" # если используете cert-manager
+# spec:
+#   tls:
+#   - hosts:
+#     - 82.217.223.112:443  
+#     secretName: flight-app-tls
+#   rules:
+#   - host: 82.217.223.112:80  
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: flight-app-service
+#             port:
+#               name: http
+#       - path: /graphql
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: flight-app-service
+#             port:
+#               name: http
+#       - path: /health
+#         pathType: Exact
+#         backend:
+#           service:
+#             name: flight-app-service
+#             port:
+#               name: http
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: flight-app-ingress
   namespace: flight-search
   annotations:
-    # Traefik специфичные аннотации
-    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.entrypoints: web
     traefik.ingress.kubernetes.io/router.middlewares: flight-search-compress@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls: "true"
-    # Round Robin балансировка (по умолчанию в Traefik)
     traefik.ingress.kubernetes.io/service-loadbalancer-method: roundrobin
-    # SSL/TLS
-    cert-manager.io/cluster-issuer: "letsencrypt-prod" # если используете cert-manager
 spec:
-  tls:
-  - hosts:
-    - 82.217.223.112:443  
-    secretName: flight-app-tls
   rules:
-  - host: 82.217.223.112:80  
+  - host: "*"  # Принимать все хосты или пустое значение
     http:
       paths:
       - path: /
