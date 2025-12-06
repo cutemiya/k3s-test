@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: flight-app
-        image: flight-search-app:latest
+        image: docker.io/library/flight-search-app:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 4000
@@ -93,3 +93,4 @@ spec:
         #           matchLabels:
         #             app: flight-app
         #         topologyKey: kubernetes.io/hostname
+
