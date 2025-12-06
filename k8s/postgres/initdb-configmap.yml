@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-initdb
+  namespace: flight-search
+data:
+  01-init.sql: |
+    -- Создание таблицы предложений авиабилетов
+    CREATE TABLE IF NOT EXISTS offers (
+        id SERIAL PRIMARY KEY,
+        arrival_city VARCHAR(100) NOT NULL,
+        departure_city VARCHAR(100) NOT NULL,
+        arrival_date TIMESTAMP NOT NULL,
+        departure_date TIMESTAMP NOT NULL,
+        marketing_company VARCHAR(100) NOT NULL,
+        operating_company VARCHAR(100),
+        base_price DECIMAL(10, 2) NOT NULL,
+        tax_price DECIMAL(10, 2) NOT NULL,
+        total_price DECIMAL(10, 2) NOT NULL,
+        currency VARCHAR(3) DEFAULT 'USD',
+        flight_number VARCHAR(20),
+        flight_duration INTEGER,
+        stops INTEGER DEFAULT 0,
+        aircraft_type VARCHAR(50),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- Индексы
+    CREATE INDEX IF NOT EXISTS idx_offers_departure_city ON offers(departure_city);
+    CREATE INDEX IF NOT EXISTS idx_offers_arrival_city ON offers(arrival_city);
+    CREATE INDEX IF NOT EXISTS idx_offers_departure_date ON offers(departure_date);
+    CREATE INDEX IF NOT EXISTS idx_offers_total_price ON offers(total_price);
+    CREATE INDEX IF NOT EXISTS idx_offers_marketing_company ON offers(marketing_company);
+
+  02-seed-data.sql: |
+    -- Тестовые данные
+    INSERT INTO offers (
+        arrival_city, departure_city, arrival_date, departure_date,
+        marketing_company, operating_company, base_price, tax_price,
+        total_price, currency, flight_number, flight_duration, stops, aircraft_type
+    ) VALUES 
+    ('Стамбул', 'Москва', '2024-06-01 14:30:00', '2024-06-01 10:00:00', 'Turkish Airlines', 'Turkish Airlines', 250.00, 50.00, 300.00, 'USD', 'TK123', 210, 0, 'Boeing 737'),
+    ('Париж', 'Москва', '2024-06-02 16:45:00', '2024-06-02 12:00:00', 'Air France', 'Air France', 320.00, 65.00, 385.00, 'USD', 'AF456', 240, 1, 'Airbus A320'),
+    ('Санкт-Петербург', 'Москва', '2024-06-03 12:30:00', '2024-06-03 10:00:00', 'Аэрофлот', 'Аэрофлот', 80.00, 15.00, 95.00, 'USD', 'SU789', 90, 0, 'Sukhoi Superjet 100'),
+    ('Сочи', 'Москва', '2024-06-04 13:15:00', '2024-06-04 11:00:00', 'S7 Airlines', 'S7 Airlines', 120.00, 25.00, 145.00, 'USD', 'S7101', 135, 0, 'Boeing 737'),
+    ('Лондон', 'Москва', '2024-06-05 18:00:00', '2024-06-05 13:00:00', 'British Airways', 'British Airways', 380.00, 70.00, 450.00, 'USD', 'BA202', 300, 1, 'Boeing 777')
+    ON CONFLICT DO NOTHING;

@@ -1,0 +1,33 @@
+{
+  "name": "lab24",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+    "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "health": "node -e \"require('http').get('http://localhost:4000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})\"",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "graphql": "^15.8.0",
+    "express-graphql": "^0.12.0",
+    "pg": "^8.11.0",
+    "dotenv": "^16.0.3",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "compression": "^1.7.4",
+    "rate-limit-redis": "^3.0.1",
+    "express-rate-limit": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0"
+}

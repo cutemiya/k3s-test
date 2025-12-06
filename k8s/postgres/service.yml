@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: flight-search
+  labels:
+    app: postgres
+    component: database
+spec:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: postgres
+  clusterIP: None # Headless service для StatefulSet
