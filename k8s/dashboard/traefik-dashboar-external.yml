@@ -1,0 +1,15 @@
+# traefik-dashboard-external.yaml
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard-external
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`dashboard.flight.local`)
+    kind: Rule
+    services:
+    - name: api@internal
+      kind: TraefikService
