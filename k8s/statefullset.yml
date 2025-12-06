@@ -56,7 +56,7 @@ spec:
             command:
             - sh
             - -c
-            - exec pg_isready -U flight_user -d flightdb
+            - exec pg_isready -U postgres -d flightdb
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
@@ -64,7 +64,7 @@ spec:
             command:
             - sh
             - -c
-            - exec pg_isready -U flight_user -d flightdb
+            - exec pg_isready -U postgres -d flightdb
           initialDelaySeconds: 5
           periodSeconds: 5
       volumes:

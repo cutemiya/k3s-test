@@ -82,7 +82,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U flight_user -d flightdb"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d flightdb"]
       interval: 10s
       timeout: 5s
       retries: 5
