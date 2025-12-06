@@ -50,11 +50,15 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
     traefik.ingress.kubernetes.io/router.middlewares: flight-search-compress@kubernetescrd
+    # traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    # traefik.ingress.kubernetes.io/router.middlewares: flight-search-compress@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls: "true"
+#     # Round Robin балансировка (по умолчанию в Traefik)
     traefik.ingress.kubernetes.io/service-loadbalancer-method: roundrobin
+    # Убрать roundrobin аннотацию - она может быть несовместима с некоторыми версиями Traefik
 spec:
   rules:
-  - host: "*"  # Принимать все хосты или пустое значение
+  - host: ""  # Пустая строка для обработки всех хостов
     http:
       paths:
       - path: /
@@ -63,18 +67,18 @@ spec:
           service:
             name: flight-app-service
             port:
-              name: http
+              number: 80  # или name: http если у вас определен порт с именем
       - path: /graphql
         pathType: Prefix
         backend:
           service:
             name: flight-app-service
             port:
-              name: http
+              number: 80
       - path: /health
         pathType: Exact
         backend:
           service:
             name: flight-app-service
             port:
-              name: http
+              number: 80
