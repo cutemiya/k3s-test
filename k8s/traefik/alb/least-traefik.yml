@@ -19,11 +19,11 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`hwr.cutemiya.ru`)
+  - match: Host(`least.cutemiya.ru`)
     kind: Rule
     services:
     - name: flight-app-service
       port: 80
-      strategy: hrw
+      strategy: leasttime
   tls:
     certResolver: letsencrypt
