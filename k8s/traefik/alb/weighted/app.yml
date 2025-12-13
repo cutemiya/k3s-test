@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: flight-app
-        image: 83.217.223.112:30050/flight-search-app:latest
+        image: registry.cutemiya.ru/flight-search-app:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 4000
