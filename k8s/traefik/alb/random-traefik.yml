@@ -1,0 +1,30 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: random-balancer
+  namespace: flight-search
+spec:
+  loadBalancer:
+    method: random
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: random-host
+  namespace: flight-search
+spec:
+  entryPoints:
+    - websecure  
+  routes:
+  - match: Host(`random.cutemiya.ru`)
+    kind: Rule
+    middlewares:
+      - name: random-balancer
+    services:
+    - name: flight-app-service  
+      port: 80                  
+      scheme: https          
+  tls:
+    certResolver: letsencrypt   
+    domains:
+    - main: random.cutemiya.ru
