@@ -10,6 +10,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/affinity: "true"
     traefik.ingress.kubernetes.io/session-cookie-name: "sticky-session"
+    traefik.ingress.kubernetes.io/session-cookie-hash: "sha1"
     traefik.ingress.kubernetes.io/session-cookie-secure: "true"
 spec:
   tls:
