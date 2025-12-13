@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flight-app-weighted
+  namespace: flight-search
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/load-balancer-method: "drr"
+spec:
+  tls:
+  - hosts:
+    - weighted.cutemiya.ru
+    secretName: flight-app-tls
+  rules:
+  - host: weighted.cutemiya.ru
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: flight-app-service
+            port:
+              number: 80
