@@ -1,206 +1,3 @@
-// // const express = require('express');
-// // const { graphqlHTTP } = require('express-graphql');
-// // const cors = require('cors');
-// // const schema = require('./schema');
-// // const resolvers = require('./resolvers');
-// // require('dotenv').config();
-
-// // const app = express();
-// // const PORT = process.env.PORT || 4000;
-
-// // // Middleware
-// // app.use(cors());
-// // app.use(express.json());
-
-// // // GraphQL endpoint
-// // app.use('/graphql', graphqlHTTP({
-// //     schema: schema,
-// //     rootValue: resolvers,
-// //     graphiql: true, // Включаем GraphiQL (песочница)
-// //     customFormatErrorFn: (error) => {
-// //         console.error('GraphQL Error:', error);
-// //         return {
-// //             message: error.message,
-// //             locations: error.locations,
-// //             path: error.path
-// //         };
-// //     }
-// // }));
-
-// // // Health check endpoint
-// // app.get('/health', (req, res) => {
-// //     res.json({
-// //         status: 'ok',
-// //         timestamp: new Date().toISOString(),
-// //         service: 'Express GraphQL API',
-// //         version: '1.0.0',
-// //         database: 'PostgreSQL'
-// //     });
-// // });
-
-// // // API info endpoint
-// // app.get('/', (req, res) => {
-// //     res.send(`
-// //     <!DOCTYPE html>
-// //     <html>
-// //     <head>
-// //       <title>Express GraphQL API</title>
-// //       <style>
-// //         body {
-// //           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-// //           max-width: 1200px;
-// //           margin: 0 auto;
-// //           padding: 20px;
-// //           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-// //           min-height: 100vh;
-// //           color: white;
-// //         }
-// //         .container {
-// //           background: rgba(255, 255, 255, 0.1);
-// //           backdrop-filter: blur(10px);
-// //           border-radius: 20px;
-// //           padding: 40px;
-// //           margin-top: 20px;
-// //         }
-// //         h1 {
-// //           color: white;
-// //           text-align: center;
-// //           font-size: 2.5em;
-// //           margin-bottom: 30px;
-// //         }
-// //         .card {
-// //           background: rgba(255, 255, 255, 0.15);
-// //           border-radius: 10px;
-// //           padding: 20px;
-// //           margin-bottom: 20px;
-// //           transition: transform 0.3s;
-// //         }
-// //         .card:hover {
-// //           transform: translateY(-5px);
-// //         }
-// //         .endpoint {
-// //           font-family: 'Courier New', monospace;
-// //           background: rgba(0, 0, 0, 0.3);
-// //           padding: 10px;
-// //           border-radius: 5px;
-// //           margin: 10px 0;
-// //         }
-// //         .btn {
-// //           display: inline-block;
-// //           background: white;
-// //           color: #667eea;
-// //           padding: 12px 30px;
-// //           border-radius: 50px;
-// //           text-decoration: none;
-// //           font-weight: bold;
-// //           margin: 10px 5px;
-// //           transition: all 0.3s;
-// //         }
-// //         .btn:hover {
-// //           background: #f8f9fa;
-// //           transform: scale(1.05);
-// //         }
-// //         .links {
-// //           display: flex;
-// //           justify-content: center;
-// //           flex-wrap: wrap;
-// //           margin-top: 30px;
-// //         }
-// //       </style>
-// //     </head>
-// //     <body>
-// //       <h1>🚀 Express GraphQL API</h1>
-      
-// //       <div class="container">
-// //         <div class="card">
-// //           <h2>📊 Доступные эндпоинты:</h2>
-// //           <div class="endpoint">POST /graphql</div>
-// //           <p>GraphQL API endpoint с поддержкой GraphiQL</p>
-          
-// //           <div class="endpoint">GET /health</div>
-// //           <p>Проверка здоровья приложения</p>
-// //         </div>
-        
-// //         <div class="card">
-// //           <h2>📝 Примеры GraphQL запросов:</h2>
-          
-// //           <h3>Запросы (Query):</h3>
-// //           <pre style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; overflow-x: auto;">
-// // query {
-// //   tasks {
-// //     id
-// //     title
-// //     completed
-// //     priority
-// //   }
-  
-// //   stats {
-// //     total
-// //     completed
-// //     pending
-// //   }
-// // }</pre>
-          
-// //           <h3>Мутации (Mutation):</h3>
-// //           <pre style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; overflow-x: auto;">
-// // mutation {
-// //   createTask(
-// //     title: "Новая задача"
-// //     description: "Описание задачи"
-// //     priority: 1
-// //   ) {
-// //     id
-// //     title
-// //     completed
-// //   }
-// // }</pre>
-// //         </div>
-        
-// //         <div class="card">
-// //           <h2>⚙️ Технологии:</h2>
-// //           <ul>
-// //             <li>Express.js - Веб-фреймворк</li>
-// //             <li>GraphQL - Язык запросов API</li>
-// //             <li>PostgreSQL - База данных</li>
-// //             <li>Docker - Контейнеризация</li>
-// //             <li>Docker Compose - Оркестрация</li>
-// //           </ul>
-// //         </div>
-// //       </div>
-      
-// //       <div class="links">
-// //         <a href="/graphql" class="btn">🎮 Открыть GraphiQL</a>
-// //         <a href="/health" class="btn">💚 Проверить здоровье</a>
-// //       </div>
-      
-// //       <div style="text-align: center; margin-top: 40px; opacity: 0.8;">
-// //         <p>Порт: ${PORT} | База данных: PostgreSQL | Режим: ${process.env.NODE_ENV}</p>
-// //       </div>
-// //     </body>
-// //     </html>
-// //   `);
-// // });
-
-// // // Запуск сервера
-// // app.listen(PORT, () => {
-// //     console.log(`
-// //   🚀 Сервер запущен!
-  
-// //   📍 Локальный: http://localhost:${PORT}
-// //   🔗 GraphQL: http://localhost:${PORT}/graphql
-// //   💚 Health: http://localhost:${PORT}/health
-  
-// //   🐳 Docker Compose команды:
-// //   • Запуск: docker-compose up
-// //   • Запуск в фоне: docker-compose up -d
-// //   • Остановка: docker-compose down
-// //   • Логи: docker-compose logs -f app
-  
-// //   📊 pgAdmin доступен по: http://localhost:5050
-// //   Email: admin@admin.com
-// //   Пароль: admin
-// //   `);
-// // });
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
@@ -211,11 +8,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// GraphQL endpoint
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: resolvers,
@@ -230,7 +25,14 @@ app.use('/graphql', graphqlHTTP({
   }
 }));
 
-// REST API для обратной совместимости
+app.get('/pod-info', (req, res) => {
+  res.json({
+    pod: process.env.HOSTNAME || 'unknown',
+    timestamp: new Date().toISOString(),
+    strategy: req.headers.host
+  });
+});
+
 app.get('/api/offers', async (req, res) => {
   try {
     const { departure, arrival, date, maxPrice } = req.query;
@@ -243,7 +45,6 @@ app.get('/api/offers', async (req, res) => {
   }
 });
 
-// Health check
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -254,7 +55,6 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Главная страница
 app.get('/', (req, res) => {
   res.send(`
     <!DOCTYPE html>
@@ -577,168 +377,3 @@ app.listen(PORT, () => {
   • Авиакомпании: Аэрофлот, S7, Turkish Airlines, Lufthansa
   `);
 });
-// const express = require('express');
-// const { graphqlHTTP } = require('express-graphql');
-// const cors = require('cors');
-// const helmet = require('helmet');
-// const compression = require('compression');
-// const rateLimit = require('express-rate-limit');
-// const schema = require('./schema');
-// const resolvers = require('./resolvers');
-
-// const app = express();
-// const PORT = process.env.PORT || 4000;
-
-// // Получаем hostname для идентификации пода
-// const podName = process.env.HOSTNAME || 'local';
-// const nodeName = process.env.NODE_NAME || 'local-node';
-
-// // Rate limiting для продакшена
-// if (process.env.NODE_ENV === 'production') {
-//   const limiter = rateLimit({
-//     windowMs: 15 * 60 * 1000, // 15 минут
-//     max: 100, // максимум 100 запросов с одного IP
-//     standardHeaders: true,
-//     legacyHeaders: false,
-//     message: 'Слишком много запросов с этого IP, попробуйте позже'
-//   });
-//   app.use(limiter);
-// }
-
-// // Middleware для безопасности
-// app.use(helmet({
-//   contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false
-// }));
-
-// app.use(cors());
-// app.use(compression());
-// app.use(express.json());
-
-// // GraphQL endpoint
-// const graphiqlEnabled = process.env.GRAPHIQL_ENABLED === 'true';
-// app.use('/graphql', graphqlHTTP({
-//   schema: schema,
-//   rootValue: resolvers,
-//   graphiql: graphiqlEnabled, // Песочница только в одном экземпляре
-//   customFormatErrorFn: (error) => {
-//     console.error('GraphQL Error:', error);
-//     return {
-//       message: error.message,
-//       locations: error.locations,
-//       path: error.path
-//     };
-//   }
-// }));
-
-// // Health check с информацией о поде
-// app.get('/health', (req, res) => {
-//   const healthInfo = {
-//     status: 'healthy',
-//     service: 'Flight Search API',
-//     timestamp: new Date().toISOString(),
-//     pod: podName,
-//     node: nodeName,
-//     version: '1.0.0',
-//     environment: process.env.NODE_ENV,
-//     features: ['GraphQL', 'PostgreSQL', 'Search', 'Filtering', 'Sorting'],
-//     uptime: process.uptime(),
-//     memory: process.memoryUsage(),
-//     graphiql: graphiqlEnabled
-//   };
-  
-//   res.json(healthInfo);
-// });
-
-// // Ready check для Kubernetes readiness probe
-// app.get('/ready', (req, res) => {
-//   // Здесь можно добавить проверку подключения к БД
-//   res.json({ 
-//     status: 'ready',
-//     pod: podName,
-//     timestamp: new Date().toISOString()
-//   });
-// });
-
-// // Главная страница
-// app.get('/', (req, res) => {
-//   const html = `
-//     <!DOCTYPE html>
-//     <html>
-//     <head>
-//       <title>Flight Search API ✈️ [${podName}]</title>
-//       <style>
-//         body {
-//           font-family: Arial, sans-serif;
-//           padding: 20px;
-//           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-//           color: white;
-//           min-height: 100vh;
-//         }
-//         .container {
-//           max-width: 800px;
-//           margin: 0 auto;
-//           background: rgba(255,255,255,0.1);
-//           padding: 30px;
-//           border-radius: 10px;
-//         }
-//         .pod-info {
-//           background: rgba(0,0,0,0.2);
-//           padding: 10px;
-//           border-radius: 5px;
-//           margin-bottom: 20px;
-//         }
-//       </style>
-//     </head>
-//     <body>
-//       <div class="container">
-//         <h1>✈️ Flight Search API</h1>
-//         <div class="pod-info">
-//           <strong>Pod:</strong> ${podName}<br>
-//           <strong>Node:</strong> ${nodeName}<br>
-//           <strong>Environment:</strong> ${process.env.NODE_ENV}
-//         </div>
-//         <p><a href="/graphql" style="color: #4facfe;">GraphiQL Sandbox</a></p>
-//         <p><a href="/health" style="color: #4facfe;">Health Check</a></p>
-//         <p><a href="/ready" style="color: #4facfe;">Ready Check</a></p>
-//       </div>
-//     </body>
-//     </html>
-//   `;
-//   res.send(html);
-// });
-
-// // Обработка сигналов для graceful shutdown
-// process.on('SIGTERM', () => {
-//   console.log('SIGTERM received, shutting down gracefully');
-//   server.close(() => {
-//     console.log('Server closed');
-//     process.exit(0);
-//   });
-// });
-
-// process.on('SIGINT', () => {
-//   console.log('SIGINT received, shutting down');
-//   server.close(() => {
-//     console.log('Server closed');
-//     process.exit(0);
-//   });
-// });
-
-// const server = app.listen(PORT, () => {
-//   console.log(`
-//   ✈️  Flight Search API запущен!
-  
-//   Pod: ${podName}
-//   Node: ${nodeName}
-//   Port: ${PORT}
-//   Environment: ${process.env.NODE_ENV}
-//   GraphiQL: ${graphiqlEnabled ? 'Enabled' : 'Disabled'}
-  
-//   Endpoints:
-//   - http://localhost:${PORT}/graphql
-//   - http://localhost:${PORT}/health
-//   - http://localhost:${PORT}/ready
-//   `);
-// });
-
-// module.exports = server; // Для тестов

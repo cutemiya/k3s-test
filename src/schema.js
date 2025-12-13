@@ -53,10 +53,12 @@ const schema = buildSchema(`
     # Поиск авиабилетов
     searchOffers(
       departure: String
+      departureIn: [String!]
       arrival: String
       departureDate: String
       returnDate: String
       maxPrice: Float
+      price: PriceCompareInput
       airline: String
       maxStops: Int
       sortBy: String
@@ -129,6 +131,11 @@ const schema = buildSchema(`
     flightDuration: Int
     stops: Int
     aircraftType: String
+  }
+
+  input PriceCompareInput {
+    min: Float
+    max: Float
   }
 
   type Subscription {

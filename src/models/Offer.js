@@ -46,6 +46,12 @@ class Offer {
       paramCount++;
     }
 
+    if (filters.departureIn && filters.departureIn.length) {
+      query += ` AND departure_city = ANY($${paramCount})`;
+      values.push(filters.departureIn);
+      paramCount++;
+    }
+
     if (filters.arrival) {
       query += ` AND arrival_city ILIKE $${paramCount}`;
       values.push(`%${filters.arrival}%`);
@@ -61,6 +67,18 @@ class Offer {
     if (filters.maxPrice) {
       query += ` AND total_price <= $${paramCount}`;
       values.push(filters.maxPrice);
+      paramCount++;
+    }
+
+    if (filters.price && filters.price.min !== undefined) {
+      query += ` AND total_price >= $${paramCount}`;
+      values.push(filters.price.min);
+      paramCount++;
+    }
+
+    if (filters.price && filters.price.max !== undefined) {
+      query += ` AND total_price <= $${paramCount}`;
+      values.push(filters.price.max);
       paramCount++;
     }
 

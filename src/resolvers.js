@@ -4,10 +4,12 @@ const resolvers = {
   // Запросы (Query)
   searchOffers: async ({
     departure,
+    departureIn,
     arrival,
     departureDate,
     returnDate,
     maxPrice,
+    price,
     airline,
     maxStops,
     sortBy,
@@ -17,9 +19,11 @@ const resolvers = {
     const filters = {};
     
     if (departure) filters.departure = departure;
+    if (departureIn) filters.departureIn = departureIn;
     if (arrival) filters.arrival = arrival;
     if (departureDate) filters.departureDate = departureDate;
     if (maxPrice) filters.maxPrice = maxPrice;
+    if (price) filters.price = price;
     if (airline) filters.airline = airline;
     if (maxStops !== undefined) filters.maxStops = maxStops;
     if (sortBy) filters.sortBy = sortBy;
