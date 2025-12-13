@@ -26,8 +26,8 @@ spec:
     spec:
       containers:
       - name: flight-app
-        image: flight-search-app:latest
-        imagePullPolicy: Never
+        image: registry.cutemiya.ru/flight-search-app:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 4000
           name: http
