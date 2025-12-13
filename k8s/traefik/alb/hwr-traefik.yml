@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: flight-app-service
+  name: flight-app-service-h
   namespace: flight-search
 spec:
   selector:
@@ -22,7 +22,7 @@ spec:
   - match: Host(`hwr.cutemiya.ru`)
     kind: Rule
     services:
-    - name: flight-app-service
+    - name: flight-app-service-h
       port: 80
       strategy: hrw
   tls:

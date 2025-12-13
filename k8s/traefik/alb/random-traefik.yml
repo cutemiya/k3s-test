@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: flight-app-service
+  name: flight-app-service-r
   namespace: flight-search
 spec:
   selector:
@@ -22,7 +22,7 @@ spec:
   - match: Host(`random.cutemiya.ru`)
     kind: Rule
     services:
-    - name: flight-app-service
+    - name: flight-app-service-r
       port: 80
       strategy: p2c
   tls:
