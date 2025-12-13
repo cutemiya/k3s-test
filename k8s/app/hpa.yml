@@ -8,8 +8,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: flight-app
-  minReplicas: 2  # Минимум 2 реплики
-  maxReplicas: 5  # Максимум 5 реплик при нагрузке
+  minReplicas: 4  # Минимум 4 реплики
+  maxReplicas: 7  # Максимум 7 реплик при нагрузке
   metrics:
   - type: Resource
     resource:
