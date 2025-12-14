@@ -8,9 +8,7 @@ data:
   PORT: "4000"
   GRAPHIQL_ENABLED: "true"
   CORS_ORIGIN: "*"
-  # Количество реплик приложения (для балансировки)
-  APP_REPLICAS: "2"
-  # Настройки подключения к БД (реальные будут в secret)
+  APP_REPLICAS: "4"
   DB_HOST: "postgres-service"
   DB_PORT: "5432"
   DB_NAME: "flightdb"

@@ -12,7 +12,7 @@ class Offer {
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
       RETURNING *
     `;
-    
+
     const values = [
       offerData.arrival,
       offerData.departure,
@@ -29,7 +29,7 @@ class Offer {
       offerData.stops || 0,
       offerData.aircraftType
     ];
-    
+
     const result = await db.query(query, values);
     return result.rows[0];
   }
@@ -147,14 +147,14 @@ class Offer {
     paramCount++;
 
     values.push(id);
-    
+
     const query = `
       UPDATE offers 
       SET ${fields.join(', ')}
       WHERE id = $${paramCount}
       RETURNING *
     `;
-    
+
     const result = await db.query(query, values);
     return result.rows[0];
   }
@@ -180,7 +180,7 @@ class Offer {
         AVG(flight_duration)::numeric(10,2) as avg_duration
       FROM offers
     `;
-    
+
     const result = await db.query(query);
     return result.rows[0];
   }
@@ -201,7 +201,7 @@ class Offer {
         ) AS cities ORDER BY city
       `;
     }
-    
+
     const result = await db.query(query);
     return result.rows.map(row => row.city);
   }
