@@ -70,7 +70,7 @@ app.get('/', (req, res) => {
         
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-          background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+          background: linear-gradient(135deg, #5dce1cff 0%, #26d0ce 100%);
           color: white;
           min-height: 100vh;
           padding: 20px;
