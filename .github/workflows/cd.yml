@@ -34,4 +34,7 @@ jobs:
     
     - name: Deploy
       run: |
+        kubectl set image deployment/flight-app \
+          flight-app=registry.cutemiya.ru/flight-search-app:latest \
+          -n flight-search
         kubectl rollout status deployment/flight-app -n flight-search --timeout=300s
