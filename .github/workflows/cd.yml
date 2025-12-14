@@ -1,0 +1,40 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted  
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Build Docker image
+      run: |
+        docker build -t flight-search-app:latest .
+    
+    - name: Tag and push to registry
+      run: |
+        docker tag flight-search-app:latest registry.cutemiya.ru/flight-search-app:latest
+        docker push registry.cutemiya.ru/flight-search-app:latest
+    
+    - name: Deploy to k3s
+      run: |
+        kubectl set image deployment/flight-app \
+          flight-app=registry.cutemiya.ru/flight-search-app:latest \
+          -n flight-search
+        
+        kubectl rollout status deployment/flight-app \
+          -n flight-search \
+          --timeout=300s
+        
+        echo "Текущий образ в deployment:"
+        kubectl get deployment/flight-app -n flight-search \
+          -o jsonpath='{.spec.template.spec.containers[0].image}'
+        echo ""
+        
+        echo "Статус подов:"
+        kubectl get pods -n flight-search -l app=flight-app
