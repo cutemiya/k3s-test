@@ -1,0 +1,1058 @@
+{
+  "configuration" : { },
+  "description" : "C4 Model для системы поиска авиабилетов",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedAgent" : "structurizr-ui",
+  "lastModifiedDate" : "2025-12-13T09:38:39Z",
+  "model" : {
+    "deploymentNodes" : [ {
+      "children" : [ {
+        "children" : [ {
+          "containerInstances" : [ {
+            "containerId" : "4",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Production",
+            "id" : "52",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "flightAppInstance1"
+            },
+            "relationships" : [ {
+              "description" : "SQL запросы к PostgreSQL\npostgres-service:5432, база flightdb",
+              "destinationId" : "57",
+              "id" : "58",
+              "linkedRelationshipId" : "38",
+              "sourceId" : "52",
+              "technology" : "PostgreSQL Protocol (5432)"
+            }, {
+              "description" : "Экспорт метрик через /metrics endpoint",
+              "destinationId" : "71",
+              "id" : "72",
+              "linkedRelationshipId" : "39",
+              "sourceId" : "52",
+              "technology" : "HTTP/metrics"
+            } ],
+            "tags" : "Container Instance"
+          }, {
+            "containerId" : "4",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Production",
+            "id" : "53",
+            "instanceId" : 2,
+            "properties" : {
+              "structurizr.dsl.identifier" : "flightAppInstance2"
+            },
+            "relationships" : [ {
+              "description" : "SQL запросы к PostgreSQL\npostgres-service:5432, база flightdb",
+              "destinationId" : "57",
+              "id" : "59",
+              "linkedRelationshipId" : "38",
+              "sourceId" : "53",
+              "technology" : "PostgreSQL Protocol (5432)"
+            }, {
+              "description" : "Экспорт метрик через /metrics endpoint",
+              "destinationId" : "71",
+              "id" : "73",
+              "linkedRelationshipId" : "39",
+              "sourceId" : "53",
+              "technology" : "HTTP/metrics"
+            } ],
+            "tags" : "Container Instance"
+          }, {
+            "containerId" : "4",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Production",
+            "id" : "54",
+            "instanceId" : 3,
+            "properties" : {
+              "structurizr.dsl.identifier" : "flightAppInstance3"
+            },
+            "relationships" : [ {
+              "description" : "SQL запросы к PostgreSQL\npostgres-service:5432, база flightdb",
+              "destinationId" : "57",
+              "id" : "60",
+              "linkedRelationshipId" : "38",
+              "sourceId" : "54",
+              "technology" : "PostgreSQL Protocol (5432)"
+            }, {
+              "description" : "Экспорт метрик через /metrics endpoint",
+              "destinationId" : "71",
+              "id" : "74",
+              "linkedRelationshipId" : "39",
+              "sourceId" : "54",
+              "technology" : "HTTP/metrics"
+            } ],
+            "tags" : "Container Instance"
+          }, {
+            "containerId" : "4",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Production",
+            "id" : "55",
+            "instanceId" : 4,
+            "properties" : {
+              "structurizr.dsl.identifier" : "flightAppInstance4"
+            },
+            "relationships" : [ {
+              "description" : "SQL запросы к PostgreSQL\npostgres-service:5432, база flightdb",
+              "destinationId" : "57",
+              "id" : "61",
+              "linkedRelationshipId" : "38",
+              "sourceId" : "55",
+              "technology" : "PostgreSQL Protocol (5432)"
+            }, {
+              "description" : "Экспорт метрик через /metrics endpoint",
+              "destinationId" : "71",
+              "id" : "75",
+              "linkedRelationshipId" : "39",
+              "sourceId" : "55",
+              "technology" : "HTTP/metrics"
+            } ],
+            "tags" : "Container Instance"
+          } ],
+          "description" : "Deployment с 4-7 репликами, управляется HPA",
+          "environment" : "Production",
+          "id" : "51",
+          "instances" : "1",
+          "name" : "Flight App Deployment",
+          "properties" : {
+            "structurizr.dsl.identifier" : "flightAppDeployment"
+          },
+          "tags" : "Element,Deployment Node,DeploymentNode",
+          "technology" : "Kubernetes Deployment"
+        }, {
+          "containerInstances" : [ {
+            "containerId" : "14",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Production",
+            "id" : "57",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "postgresInstance"
+            },
+            "tags" : "Container Instance"
+          } ],
+          "description" : "StatefulSet для базы данных",
+          "environment" : "Production",
+          "id" : "56",
+          "instances" : "1",
+          "name" : "PostgreSQL StatefulSet",
+          "properties" : {
+            "structurizr.dsl.identifier" : "postgresStatefulSet"
+          },
+          "tags" : "Element,Deployment Node,DeploymentNode",
+          "technology" : "Kubernetes StatefulSet"
+        } ],
+        "description" : "Namespace для приложения",
+        "environment" : "Production",
+        "id" : "50",
+        "infrastructureNodes" : [ {
+          "description" : "flight-app-service: Load balancing для подов приложения",
+          "environment" : "Production",
+          "id" : "62",
+          "name" : "Flight App Service",
+          "properties" : {
+            "structurizr.dsl.identifier" : "flightAppService"
+          },
+          "tags" : "Element,Infrastructure Node",
+          "technology" : "Kubernetes Service"
+        }, {
+          "description" : "postgres-service: Service discovery для PostgreSQL",
+          "environment" : "Production",
+          "id" : "63",
+          "name" : "PostgreSQL Service",
+          "properties" : {
+            "structurizr.dsl.identifier" : "postgresService"
+          },
+          "tags" : "Element,Infrastructure Node",
+          "technology" : "Kubernetes Service"
+        }, {
+          "description" : "flight-app-ingress: Маршрутизация входящего трафика",
+          "environment" : "Production",
+          "id" : "64",
+          "name" : "Flight App Ingress",
+          "properties" : {
+            "structurizr.dsl.identifier" : "flightAppIngress"
+          },
+          "tags" : "Element,Infrastructure Node",
+          "technology" : "Kubernetes Ingress"
+        }, {
+          "description" : "flight-app-hpa: Автомасштабирование 4-7 реплик",
+          "environment" : "Production",
+          "id" : "65",
+          "name" : "Flight App HPA",
+          "properties" : {
+            "structurizr.dsl.identifier" : "flightAppHPA"
+          },
+          "tags" : "Element,Infrastructure Node",
+          "technology" : "Kubernetes HPA"
+        } ],
+        "instances" : "1",
+        "name" : "flight-search namespace",
+        "properties" : {
+          "structurizr.dsl.identifier" : "flightSearchNamespace"
+        },
+        "tags" : "Element,Deployment Node,DeploymentNode",
+        "technology" : "Kubernetes Namespace"
+      }, {
+        "children" : [ {
+          "containerInstances" : [ {
+            "containerId" : "15",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Production",
+            "id" : "68",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "traefikInstance"
+            },
+            "tags" : "Container Instance"
+          } ],
+          "description" : "Traefik Ingress Controller",
+          "environment" : "Production",
+          "id" : "67",
+          "instances" : "1",
+          "name" : "Traefik Deployment",
+          "properties" : {
+            "structurizr.dsl.identifier" : "traefikDeployment"
+          },
+          "tags" : "Element,Deployment Node,DeploymentNode",
+          "technology" : "Kubernetes Deployment"
+        } ],
+        "description" : "Namespace для Traefik",
+        "environment" : "Production",
+        "id" : "66",
+        "instances" : "1",
+        "name" : "traefik namespace",
+        "properties" : {
+          "structurizr.dsl.identifier" : "traefikNamespace"
+        },
+        "tags" : "Element,Deployment Node,DeploymentNode",
+        "technology" : "Kubernetes Namespace"
+      }, {
+        "children" : [ {
+          "containerInstances" : [ {
+            "containerId" : "16",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Production",
+            "id" : "71",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "prometheusInstance"
+            },
+            "relationships" : [ {
+              "description" : "Предоставление данных через PromQL запросы",
+              "destinationId" : "77",
+              "id" : "78",
+              "linkedRelationshipId" : "40",
+              "sourceId" : "71",
+              "technology" : "HTTP/PromQL"
+            } ],
+            "tags" : "Container Instance"
+          } ],
+          "description" : "Prometheus для сбора метрик",
+          "environment" : "Production",
+          "id" : "70",
+          "instances" : "1",
+          "name" : "Prometheus Deployment",
+          "properties" : {
+            "structurizr.dsl.identifier" : "prometheusDeployment"
+          },
+          "tags" : "Element,Deployment Node,DeploymentNode",
+          "technology" : "Kubernetes Deployment"
+        }, {
+          "containerInstances" : [ {
+            "containerId" : "17",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Production",
+            "id" : "77",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "grafanaInstance"
+            },
+            "tags" : "Container Instance"
+          } ],
+          "description" : "Grafana для визуализации",
+          "environment" : "Production",
+          "id" : "76",
+          "instances" : "1",
+          "name" : "Grafana Deployment",
+          "properties" : {
+            "structurizr.dsl.identifier" : "grafanaDeployment"
+          },
+          "tags" : "Element,Deployment Node,DeploymentNode",
+          "technology" : "Kubernetes Deployment"
+        } ],
+        "description" : "Namespace для мониторинга",
+        "environment" : "Production",
+        "id" : "69",
+        "instances" : "1",
+        "name" : "monitoring namespace",
+        "properties" : {
+          "structurizr.dsl.identifier" : "monitoringNamespace"
+        },
+        "tags" : "Element,Deployment Node,DeploymentNode",
+        "technology" : "Kubernetes Namespace"
+      } ],
+      "description" : "Production Kubernetes кластер",
+      "environment" : "Production",
+      "id" : "49",
+      "instances" : "1",
+      "name" : "Kubernetes Cluster",
+      "properties" : {
+        "structurizr.dsl.identifier" : "kubernetesCluster"
+      },
+      "tags" : "Element,Deployment Node,DeploymentNode",
+      "technology" : "Kubernetes"
+    } ],
+    "people" : [ {
+      "description" : "Конечный пользователь системы поиска авиабилетов\n• Использует домены: main.cutemiya.ru, least.cutemiya.ru, random.cutemiya.ru\n• Выполняет GraphQL запросы через HTTPS (порт 443)\n• Просматривает предложения авиабилетов",
+      "id" : "1",
+      "name" : "Пользователь",
+      "properties" : {
+        "structurizr.dsl.identifier" : "user"
+      },
+      "relationships" : [ {
+        "description" : "Ищет авиабилеты через GraphQL API\nДомены: main.cutemiya.ru, least.cutemiya.ru, random.cutemiya.ru",
+        "destinationId" : "3",
+        "id" : "24",
+        "sourceId" : "1",
+        "tags" : "Relationship",
+        "technology" : "HTTPS (443)"
+      }, {
+        "description" : "Запросы через домены:\n• main.cutemiya.ru (Round Robin)\n• least.cutemiya.ru (Least Time)\n• random.cutemiya.ru (P2C)",
+        "destinationId" : "15",
+        "id" : "27",
+        "sourceId" : "1",
+        "tags" : "Relationship",
+        "technology" : "HTTPS (443)"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "Системный администратор, управляющий инфраструктурой\n• Мониторит систему через Grafana (grafana.cutemiya.ru:3000)\n• Управляет Traefik через Dashboard (traefik.cutemiya.ru:8080)\n• Настраивает балансировку и масштабирование\n• Использует kubectl для управления Kubernetes",
+      "id" : "2",
+      "name" : "Администратор системы",
+      "properties" : {
+        "structurizr.dsl.identifier" : "admin"
+      },
+      "relationships" : [ {
+        "description" : "Мониторит систему через Grafana\ngrafana.cutemiya.ru:3000",
+        "destinationId" : "3",
+        "id" : "25",
+        "sourceId" : "2",
+        "tags" : "Relationship",
+        "technology" : "HTTPS (443)"
+      }, {
+        "description" : "Управляет развертыванием и масштабированием\nkubectl CLI, HPA настройки",
+        "destinationId" : "18",
+        "id" : "26",
+        "sourceId" : "2",
+        "tags" : "Relationship",
+        "technology" : "kubectl"
+      }, {
+        "description" : "Доступ к Traefik Dashboard\ntraefik.cutemiya.ru:8080",
+        "destinationId" : "15",
+        "id" : "28",
+        "sourceId" : "2",
+        "tags" : "Relationship",
+        "technology" : "HTTPS (443)"
+      }, {
+        "description" : "Просмотр дашбордов мониторинга\ngrafana.cutemiya.ru:3000",
+        "destinationId" : "17",
+        "id" : "41",
+        "sourceId" : "2",
+        "tags" : "Relationship",
+        "technology" : "HTTPS (443)"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "components" : [ {
+          "description" : "HTTP сервер для обработки запросов",
+          "documentation" : { },
+          "id" : "5",
+          "name" : "Express Server",
+          "properties" : {
+            "structurizr.dsl.identifier" : "expressServer"
+          },
+          "relationships" : [ {
+            "description" : "Использует схему",
+            "destinationId" : "6",
+            "id" : "10",
+            "sourceId" : "5",
+            "tags" : "Relationship",
+            "technology" : "JavaScript"
+          }, {
+            "description" : "Вызывает резолверы",
+            "destinationId" : "7",
+            "id" : "11",
+            "sourceId" : "5",
+            "tags" : "Relationship",
+            "technology" : "JavaScript"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Express.js"
+        }, {
+          "description" : "Схема GraphQL с типами и запросами\n• Endpoint: /graphql\n• GraphiQL включен (GRAPHIQL_ENABLED=true)\n• Типы: Offer, Flight, Airport",
+          "documentation" : { },
+          "id" : "6",
+          "name" : "GraphQL Schema",
+          "properties" : {
+            "structurizr.dsl.identifier" : "graphqlSchema"
+          },
+          "tags" : "Element,Component",
+          "technology" : "GraphQL"
+        }, {
+          "description" : "Резолверы для обработки GraphQL запросов\n• Query: offers, searchOffers\n• Обработка фильтров и пагинации",
+          "documentation" : { },
+          "id" : "7",
+          "name" : "GraphQL Resolvers",
+          "properties" : {
+            "structurizr.dsl.identifier" : "graphqlResolvers"
+          },
+          "relationships" : [ {
+            "description" : "Использует модель",
+            "destinationId" : "8",
+            "id" : "12",
+            "sourceId" : "7",
+            "tags" : "Relationship",
+            "technology" : "JavaScript"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript"
+        }, {
+          "description" : "Модель данных для работы с предложениями авиабилетов",
+          "documentation" : { },
+          "id" : "8",
+          "name" : "Offer Model",
+          "properties" : {
+            "structurizr.dsl.identifier" : "offerModel"
+          },
+          "relationships" : [ {
+            "description" : "Выполняет SQL запросы",
+            "destinationId" : "9",
+            "id" : "13",
+            "sourceId" : "8",
+            "tags" : "Relationship",
+            "technology" : "JavaScript"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript"
+        }, {
+          "description" : "Пул соединений с базой данных PostgreSQL\n• Библиотека: pg (node-postgres)\n• Подключение: postgres-service:5432\n• База: flightdb",
+          "documentation" : { },
+          "id" : "9",
+          "name" : "Database Connection Pool",
+          "properties" : {
+            "structurizr.dsl.identifier" : "dbConnection"
+          },
+          "relationships" : [ {
+            "description" : "Подключение через пул соединений\npostgres-service:5432/flightdb",
+            "destinationId" : "14",
+            "id" : "48",
+            "sourceId" : "9",
+            "tags" : "Relationship",
+            "technology" : "PostgreSQL Protocol (5432)"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "pg (node-postgres)"
+        } ],
+        "description" : "Node.js приложение с Express и GraphQL API\n• Порт: 4000 (HTTP)\n• Реплики: 4 пода (управляется HPA: 4-7 реплик)\n• Namespace: flight-search\n• Endpoints: /graphql (GraphQL API), /health (Health Check)\n• Ресурсы: 128Mi-256Mi RAM, 100m-200m CPU\n• Image: registry.cutemiya.ru/flight-search-app:latest",
+        "documentation" : { },
+        "id" : "4",
+        "name" : "Flight Search Application",
+        "properties" : {
+          "structurizr.dsl.identifier" : "webApplication"
+        },
+        "relationships" : [ {
+          "description" : "SQL запросы к PostgreSQL\npostgres-service:5432, база flightdb",
+          "destinationId" : "14",
+          "id" : "38",
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "PostgreSQL Protocol (5432)"
+        }, {
+          "description" : "Экспорт метрик через /metrics endpoint",
+          "destinationId" : "16",
+          "id" : "39",
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "HTTP/metrics"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Node.js, Express, GraphQL, Kubernetes"
+      }, {
+        "description" : "Реляционная база данных для хранения предложений авиабилетов\n• Порт: 5432 (PostgreSQL Protocol)\n• Namespace: flight-search\n• Service: postgres-service (ClusterIP)\n• StatefulSet: Управление персистентным хранилищем\n• База данных: flightdb",
+        "documentation" : { },
+        "id" : "14",
+        "name" : "PostgreSQL Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "database"
+        },
+        "tags" : "Element,Container,Database",
+        "technology" : "PostgreSQL 15, Kubernetes StatefulSet"
+      }, {
+        "description" : "Reverse proxy и load balancer для маршрутизации трафика\n• Порты: 80 (HTTP), 443 (HTTPS), 8080 (Dashboard)\n• Namespace: kube-system\n• External IP: 83.217.223.112\n• Домены:\n  - main.cutemiya.ru (Ingress, Round Robin)\n  - least.cutemiya.ru (IngressRoute, Least Time)\n  - random.cutemiya.ru (IngressRoute, P2C)\n• TLS: Let's Encrypt (cert-manager)\n• EntryPoints: web (80), websecure (443)",
+        "documentation" : { },
+        "id" : "15",
+        "name" : "Traefik Ingress Controller",
+        "properties" : {
+          "structurizr.dsl.identifier" : "traefik"
+        },
+        "relationships" : [ {
+          "description" : "Маршрутизация через Kubernetes Ingress\nmain.cutemiya.ru (Round Robin)",
+          "destinationId" : "19",
+          "id" : "29",
+          "sourceId" : "15",
+          "tags" : "Relationship",
+          "technology" : "HTTP (80)"
+        }, {
+          "description" : "Маршрутизация через Kubernetes Ingress\nmain.cutemiya.ru (Round Robin)",
+          "destinationId" : "18",
+          "id" : "30",
+          "linkedRelationshipId" : "29",
+          "sourceId" : "15",
+          "technology" : "HTTP (80)"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Traefik, Kubernetes Ingress, Let's Encrypt"
+      }, {
+        "description" : "Система мониторинга и сбора метрик\n• Namespace: monitoring\n• Endpoint: /metrics (HTTP)\n• Собирает метрики от Traefik и Flight App\n• PromQL для запросов метрик",
+        "documentation" : { },
+        "id" : "16",
+        "name" : "Prometheus",
+        "properties" : {
+          "structurizr.dsl.identifier" : "prometheus"
+        },
+        "relationships" : [ {
+          "description" : "Предоставление данных через PromQL запросы",
+          "destinationId" : "17",
+          "id" : "40",
+          "sourceId" : "16",
+          "tags" : "Relationship",
+          "technology" : "HTTP/PromQL"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Prometheus, Kubernetes, PromQL"
+      }, {
+        "description" : "Визуализация метрик и дашборды\n• Порт: 3000 (HTTP)\n• Namespace: monitoring\n• Домен: grafana.cutemiya.ru\n• Источник данных: Prometheus (PromQL)\n• Дашборды для мониторинга Traefik и приложения",
+        "documentation" : { },
+        "id" : "17",
+        "name" : "Grafana",
+        "properties" : {
+          "structurizr.dsl.identifier" : "grafana"
+        },
+        "tags" : "Element,Container",
+        "technology" : "Grafana, Kubernetes"
+      } ],
+      "description" : "Система поиска и управления авиабилетами с GraphQL API",
+      "documentation" : { },
+      "id" : "3",
+      "name" : "Flight Search System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "flightSearchSystem"
+      },
+      "relationships" : [ {
+        "description" : "Маршрутизация через Kubernetes Ingress\nmain.cutemiya.ru (Round Robin)",
+        "destinationId" : "19",
+        "id" : "31",
+        "linkedRelationshipId" : "29",
+        "sourceId" : "3",
+        "technology" : "HTTP (80)"
+      }, {
+        "description" : "Маршрутизация через Kubernetes Ingress\nmain.cutemiya.ru (Round Robin)",
+        "destinationId" : "18",
+        "id" : "32",
+        "linkedRelationshipId" : "29",
+        "sourceId" : "3",
+        "technology" : "HTTP (80)"
+      } ],
+      "tags" : "Element,Software System,System"
+    }, {
+      "containers" : [ {
+        "description" : "Управление входящим трафиком через Ingress ресурсы",
+        "documentation" : { },
+        "id" : "19",
+        "name" : "Kubernetes Ingress",
+        "properties" : {
+          "structurizr.dsl.identifier" : "k8sIngress"
+        },
+        "relationships" : [ {
+          "description" : "Маршрутизация к flight-app-service\nClusterIP, порт 80 -> 4000",
+          "destinationId" : "20",
+          "id" : "33",
+          "sourceId" : "19",
+          "tags" : "Relationship",
+          "technology" : "HTTP (80)"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Kubernetes Ingress"
+      }, {
+        "description" : "Service discovery и load balancing для подов",
+        "documentation" : { },
+        "id" : "20",
+        "name" : "Kubernetes Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "k8sService"
+        },
+        "relationships" : [ {
+          "description" : "Load balancing между 4 подами\nRound Robin (по умолчанию)",
+          "destinationId" : "4",
+          "id" : "34",
+          "sourceId" : "20",
+          "tags" : "Relationship",
+          "technology" : "HTTP (4000)"
+        }, {
+          "description" : "Load balancing между 4 подами\nRound Robin (по умолчанию)",
+          "destinationId" : "3",
+          "id" : "35",
+          "linkedRelationshipId" : "34",
+          "sourceId" : "20",
+          "technology" : "HTTP (4000)"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Kubernetes Service"
+      }, {
+        "description" : "Автоматическое масштабирование подов на основе метрик CPU/Memory",
+        "documentation" : { },
+        "id" : "21",
+        "name" : "Horizontal Pod Autoscaler",
+        "properties" : {
+          "structurizr.dsl.identifier" : "k8sHPA"
+        },
+        "relationships" : [ {
+          "description" : "Автоматическое масштабирование",
+          "destinationId" : "22",
+          "id" : "42",
+          "sourceId" : "21",
+          "tags" : "Relationship",
+          "technology" : "Kubernetes API"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Kubernetes HPA"
+      }, {
+        "description" : "Управление репликами приложения (4-7 реплик)",
+        "documentation" : { },
+        "id" : "22",
+        "name" : "Kubernetes Deployment",
+        "properties" : {
+          "structurizr.dsl.identifier" : "k8sDeployment"
+        },
+        "relationships" : [ {
+          "description" : "Управление репликами",
+          "destinationId" : "4",
+          "id" : "43",
+          "sourceId" : "22",
+          "tags" : "Relationship",
+          "technology" : "Kubernetes"
+        }, {
+          "description" : "Управление репликами",
+          "destinationId" : "3",
+          "id" : "44",
+          "linkedRelationshipId" : "43",
+          "sourceId" : "22",
+          "technology" : "Kubernetes"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Kubernetes Deployment"
+      }, {
+        "description" : "Управление Stateful приложениями (PostgreSQL)",
+        "documentation" : { },
+        "id" : "23",
+        "name" : "Kubernetes StatefulSet",
+        "properties" : {
+          "structurizr.dsl.identifier" : "k8sStatefulSet"
+        },
+        "relationships" : [ {
+          "description" : "Управление StatefulSet",
+          "destinationId" : "14",
+          "id" : "45",
+          "sourceId" : "23",
+          "tags" : "Relationship",
+          "technology" : "Kubernetes"
+        }, {
+          "description" : "Управление StatefulSet",
+          "destinationId" : "3",
+          "id" : "46",
+          "linkedRelationshipId" : "45",
+          "sourceId" : "23",
+          "technology" : "Kubernetes"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Kubernetes StatefulSet"
+      } ],
+      "description" : "Оркестратор контейнеров, управляющий развертыванием и масштабированием",
+      "documentation" : { },
+      "id" : "18",
+      "name" : "Kubernetes Cluster",
+      "properties" : {
+        "structurizr.dsl.identifier" : "kubernetes"
+      },
+      "relationships" : [ {
+        "description" : "Load balancing между 4 подами\nRound Robin (по умолчанию)",
+        "destinationId" : "4",
+        "id" : "36",
+        "linkedRelationshipId" : "34",
+        "sourceId" : "18",
+        "technology" : "HTTP (4000)"
+      }, {
+        "description" : "Load balancing между 4 подами\nRound Robin (по умолчанию)",
+        "destinationId" : "3",
+        "id" : "37",
+        "linkedRelationshipId" : "34",
+        "sourceId" : "18",
+        "technology" : "HTTP (4000)"
+      }, {
+        "description" : "Управление StatefulSet",
+        "destinationId" : "14",
+        "id" : "47",
+        "linkedRelationshipId" : "45",
+        "sourceId" : "18",
+        "technology" : "Kubernetes"
+      } ],
+      "tags" : "Element,Software System,Kubernetes,System"
+    } ]
+  },
+  "name" : "Flight Search System",
+  "properties" : {
+    "structurizr.inspection.info" : "0",
+    "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.error" : "16",
+    "structurizr.inspection.warning" : "0",
+    "structurizr.dsl" : "d29ya3NwYWNlICJGbGlnaHQgU2VhcmNoIFN5c3RlbSIgIkM0IE1vZGVsINC00LvRjyDRgdC40YHRgtC10LzRiyDQv9C+0LjRgdC60LAg0LDQstC40LDQsdC40LvQtdGC0L7QsiIgewoKICAgIG1vZGVsIHsKICAgICAgICAjID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAgICAgICAgIyBQRU9QTEUgQU5EIFNPRlRXQVJFIFNZU1RFTVMKICAgICAgICAjID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAgICAgICAgCiAgICAgICAgdXNlciA9IHBlcnNvbiAi0J/QvtC70YzQt9C+0LLQsNGC0LXQu9GMIiAi0JrQvtC90LXRh9C90YvQuSDQv9C+0LvRjNC30L7QstCw0YLQtdC70Ywg0YHQuNGB0YLQtdC80Ysg0L/QvtC40YHQutCwINCw0LLQuNCw0LHQuNC70LXRgtC+0LJcbuKAoiDQmNGB0L/QvtC70YzQt9GD0LXRgiDQtNC+0LzQtdC90Ys6IG1haW4uY3V0ZW1peWEucnUsIGxlYXN0LmN1dGVtaXlhLnJ1LCByYW5kb20uY3V0ZW1peWEucnVcbuKAoiDQktGL0L/QvtC70L3Rj9C10YIgR3JhcGhRTCDQt9Cw0L/RgNC+0YHRiyDRh9C10YDQtdC3IEhUVFBTICjQv9C+0YDRgiA0NDMpXG7igKIg0J/RgNC+0YHQvNCw0YLRgNC40LLQsNC10YIg0L/RgNC10LTQu9C+0LbQtdC90LjRjyDQsNCy0LjQsNCx0LjQu9C10YLQvtCyIiB7CiAgICAgICAgICAgIHRhZ3MgIlBlcnNvbiIKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgYWRtaW4gPSBwZXJzb24gItCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAINGB0LjRgdGC0LXQvNGLIiAi0KHQuNGB0YLQtdC80L3Ri9C5INCw0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGALCDRg9C/0YDQsNCy0LvRj9GO0YnQuNC5INC40L3RhNGA0LDRgdGC0YDRg9C60YLRg9GA0L7QuVxu4oCiINCc0L7QvdC40YLQvtGA0LjRgiDRgdC40YHRgtC10LzRgyDRh9C10YDQtdC3IEdyYWZhbmEgKGdyYWZhbmEuY3V0ZW1peWEucnU6MzAwMClcbuKAoiDQo9C/0YDQsNCy0LvRj9C10YIgVHJhZWZpayDRh9C10YDQtdC3IERhc2hib2FyZCAodHJhZWZpay5jdXRlbWl5YS5ydTo4MDgwKVxu4oCiINCd0LDRgdGC0YDQsNC40LLQsNC10YIg0LHQsNC70LDQvdGB0LjRgNC+0LLQutGDINC4INC80LDRgdGI0YLQsNCx0LjRgNC+0LLQsNC90LjQtVxu4oCiINCY0YHQv9C+0LvRjNC30YPQtdGCIGt1YmVjdGwg0LTQu9GPINGD0L/RgNCw0LLQu9C10L3QuNGPIEt1YmVybmV0ZXMiIHsKICAgICAgICAgICAgdGFncyAiUGVyc29uIgogICAgICAgIH0KICAgICAgICAKICAgICAgICBmbGlnaHRTZWFyY2hTeXN0ZW0gPSBzb2Z0d2FyZVN5c3RlbSAiRmxpZ2h0IFNlYXJjaCBTeXN0ZW0iICLQodC40YHRgtC10LzQsCDQv9C+0LjRgdC60LAg0Lgg0YPQv9GA0LDQstC70LXQvdC40Y8g0LDQstC40LDQsdC40LvQtdGC0LDQvNC4INGBIEdyYXBoUUwgQVBJIiB7CiAgICAgICAgICAgIHRhZ3MgIlN5c3RlbSIKICAgICAgICAgICAgCiAgICAgICAgICAgICMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KICAgICAgICAgICAgIyBMRVZFTCAyOiBDT05UQUlORVIgRElBR1JBTQogICAgICAgICAgICAjID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAgICAgICAgICAgIAogICAgICAgICAgICB3ZWJBcHBsaWNhdGlvbiA9IGNvbnRhaW5lciAiRmxpZ2h0IFNlYXJjaCBBcHBsaWNhdGlvbiIgIk5vZGUuanMg0L/RgNC40LvQvtC20LXQvdC40LUg0YEgRXhwcmVzcyDQuCBHcmFwaFFMIEFQSVxu4oCiINCf0L7RgNGCOiA0MDAwIChIVFRQKVxu4oCiINCg0LXQv9C70LjQutC4OiA0INC/0L7QtNCwICjRg9C/0YDQsNCy0LvRj9C10YLRgdGPIEhQQTogNC03INGA0LXQv9C70LjQuilcbuKAoiBOYW1lc3BhY2U6IGZsaWdodC1zZWFyY2hcbuKAoiBFbmRwb2ludHM6IC9ncmFwaHFsIChHcmFwaFFMIEFQSSksIC9oZWFsdGggKEhlYWx0aCBDaGVjaylcbuKAoiDQoNC10YHRg9GA0YHRizogMTI4TWktMjU2TWkgUkFNLCAxMDBtLTIwMG0gQ1BVXG7igKIgSW1hZ2U6IHJlZ2lzdHJ5LmN1dGVtaXlhLnJ1L2ZsaWdodC1zZWFyY2gtYXBwOmxhdGVzdCIgIk5vZGUuanMsIEV4cHJlc3MsIEdyYXBoUUwsIEt1YmVybmV0ZXMiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkNvbnRhaW5lciIKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQogICAgICAgICAgICAgICAgIyBMRVZFTCAzOiBDT01QT05FTlQgRElBR1JBTQogICAgICAgICAgICAgICAgIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQogICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICBleHByZXNzU2VydmVyID0gY29tcG9uZW50ICJFeHByZXNzIFNlcnZlciIgIkhUVFAg0YHQtdGA0LLQtdGAINC00LvRjyDQvtCx0YDQsNCx0L7RgtC60Lgg0LfQsNC/0YDQvtGB0L7QsiIgIkV4cHJlc3MuanMiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJDb21wb25lbnQiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgIGdyYXBocWxTY2hlbWEgPSBjb21wb25lbnQgIkdyYXBoUUwgU2NoZW1hIiAi0KHRhdC10LzQsCBHcmFwaFFMINGBINGC0LjQv9Cw0LzQuCDQuCDQt9Cw0L/RgNC+0YHQsNC80LhcbuKAoiBFbmRwb2ludDogL2dyYXBocWxcbuKAoiBHcmFwaGlRTCDQstC60LvRjtGH0LXQvSAoR1JBUEhJUUxfRU5BQkxFRD10cnVlKVxu4oCiINCi0LjQv9GLOiBPZmZlciwgRmxpZ2h0LCBBaXJwb3J0IiAiR3JhcGhRTCIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgIkNvbXBvbmVudCIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgZ3JhcGhxbFJlc29sdmVycyA9IGNvbXBvbmVudCAiR3JhcGhRTCBSZXNvbHZlcnMiICLQoNC10LfQvtC70LLQtdGA0Ysg0LTQu9GPINC+0LHRgNCw0LHQvtGC0LrQuCBHcmFwaFFMINC30LDQv9GA0L7RgdC+0LJcbuKAoiBRdWVyeTogb2ZmZXJzLCBzZWFyY2hPZmZlcnNcbuKAoiDQntCx0YDQsNCx0L7RgtC60LAg0YTQuNC70YzRgtGA0L7QsiDQuCDQv9Cw0LPQuNC90LDRhtC40LgiICJKYXZhU2NyaXB0IiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiQ29tcG9uZW50IgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICBvZmZlck1vZGVsID0gY29tcG9uZW50ICJPZmZlciBNb2RlbCIgItCc0L7QtNC10LvRjCDQtNCw0L3QvdGL0YUg0LTQu9GPINGA0LDQsdC+0YLRiyDRgSDQv9GA0LXQtNC70L7QttC10L3QuNGP0LzQuCDQsNCy0LjQsNCx0LjQu9C10YLQvtCyIiAiSmF2YVNjcmlwdCIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgIkNvbXBvbmVudCIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgZGJDb25uZWN0aW9uID0gY29tcG9uZW50ICJEYXRhYmFzZSBDb25uZWN0aW9uIFBvb2wiICLQn9GD0Lsg0YHQvtC10LTQuNC90LXQvdC40Lkg0YEg0LHQsNC30L7QuSDQtNCw0L3QvdGL0YUgUG9zdGdyZVNRTFxu4oCiINCR0LjQsdC70LjQvtGC0LXQutCwOiBwZyAobm9kZS1wb3N0Z3JlcylcbuKAoiDQn9C+0LTQutC70Y7Rh9C10L3QuNC1OiBwb3N0Z3Jlcy1zZXJ2aWNlOjU0MzJcbuKAoiDQkdCw0LfQsDogZmxpZ2h0ZGIiICJwZyAobm9kZS1wb3N0Z3JlcykiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJDb21wb25lbnQiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICMgUmVsYXRpb25zaGlwcyDQtNC70Y8gQ29tcG9uZW50INGD0YDQvtCy0L3RjwogICAgICAgICAgICAgICAgZXhwcmVzc1NlcnZlciAtPiBncmFwaHFsU2NoZW1hICLQmNGB0L/QvtC70YzQt9GD0LXRgiDRgdGF0LXQvNGDIiAiSmF2YVNjcmlwdCIKICAgICAgICAgICAgICAgIGV4cHJlc3NTZXJ2ZXIgLT4gZ3JhcGhxbFJlc29sdmVycyAi0JLRi9C30YvQstCw0LXRgiDRgNC10LfQvtC70LLQtdGA0YsiICJKYXZhU2NyaXB0IgogICAgICAgICAgICAgICAgZ3JhcGhxbFJlc29sdmVycyAtPiBvZmZlck1vZGVsICLQmNGB0L/QvtC70YzQt9GD0LXRgiDQvNC+0LTQtdC70YwiICJKYXZhU2NyaXB0IgogICAgICAgICAgICAgICAgb2ZmZXJNb2RlbCAtPiBkYkNvbm5lY3Rpb24gItCS0YvQv9C+0LvQvdGP0LXRgiBTUUwg0LfQsNC/0YDQvtGB0YsiICJKYXZhU2NyaXB0IgogICAgICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgICAgICBkYXRhYmFzZSA9IGNvbnRhaW5lciAiUG9zdGdyZVNRTCBEYXRhYmFzZSIgItCg0LXQu9GP0YbQuNC+0L3QvdCw0Y8g0LHQsNC30LAg0LTQsNC90L3Ri9GFINC00LvRjyDRhdGA0LDQvdC10L3QuNGPINC/0YDQtdC00LvQvtC20LXQvdC40Lkg0LDQstC40LDQsdC40LvQtdGC0L7Qslxu4oCiINCf0L7RgNGCOiA1NDMyIChQb3N0Z3JlU1FMIFByb3RvY29sKVxu4oCiIE5hbWVzcGFjZTogZmxpZ2h0LXNlYXJjaFxu4oCiIFNlcnZpY2U6IHBvc3RncmVzLXNlcnZpY2UgKENsdXN0ZXJJUClcbuKAoiBTdGF0ZWZ1bFNldDog0KPQv9GA0LDQstC70LXQvdC40LUg0L/QtdGA0YHQuNGB0YLQtdC90YLQvdGL0Lwg0YXRgNCw0L3QuNC70LjRidC10LxcbuKAoiDQkdCw0LfQsCDQtNCw0L3QvdGL0YU6IGZsaWdodGRiIiAiUG9zdGdyZVNRTCAxNSwgS3ViZXJuZXRlcyBTdGF0ZWZ1bFNldCIgewogICAgICAgICAgICAgICAgdGFncyAiQ29udGFpbmVyLERhdGFiYXNlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgICAgICB0cmFlZmlrID0gY29udGFpbmVyICJUcmFlZmlrIEluZ3Jlc3MgQ29udHJvbGxlciIgIlJldmVyc2UgcHJveHkg0LggbG9hZCBiYWxhbmNlciDQtNC70Y8g0LzQsNGA0YjRgNGD0YLQuNC30LDRhtC40Lgg0YLRgNCw0YTQuNC60LBcbuKAoiDQn9C+0YDRgtGLOiA4MCAoSFRUUCksIDQ0MyAoSFRUUFMpLCA4MDgwIChEYXNoYm9hcmQpXG7igKIgTmFtZXNwYWNlOiBrdWJlLXN5c3RlbVxu4oCiIEV4dGVybmFsIElQOiA4My4yMTcuMjIzLjExMlxu4oCiINCU0L7QvNC10L3RizpcbiAgLSBtYWluLmN1dGVtaXlhLnJ1IChJbmdyZXNzLCBSb3VuZCBSb2JpbilcbiAgLSBsZWFzdC5jdXRlbWl5YS5ydSAoSW5ncmVzc1JvdXRlLCBMZWFzdCBUaW1lKVxuICAtIHJhbmRvbS5jdXRlbWl5YS5ydSAoSW5ncmVzc1JvdXRlLCBQMkMpXG7igKIgVExTOiBMZXQncyBFbmNyeXB0IChjZXJ0LW1hbmFnZXIpXG7igKIgRW50cnlQb2ludHM6IHdlYiAoODApLCB3ZWJzZWN1cmUgKDQ0MykiICJUcmFlZmlrLCBLdWJlcm5ldGVzIEluZ3Jlc3MsIExldCdzIEVuY3J5cHQiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkNvbnRhaW5lciIKICAgICAgICAgICAgfQogICAgICAgICAgICAKICAgICAgICAgICAgcHJvbWV0aGV1cyA9IGNvbnRhaW5lciAiUHJvbWV0aGV1cyIgItCh0LjRgdGC0LXQvNCwINC80L7QvdC40YLQvtGA0LjQvdCz0LAg0Lgg0YHQsdC+0YDQsCDQvNC10YLRgNC40LpcbuKAoiBOYW1lc3BhY2U6IG1vbml0b3JpbmdcbuKAoiBFbmRwb2ludDogL21ldHJpY3MgKEhUVFApXG7igKIg0KHQvtCx0LjRgNCw0LXRgiDQvNC10YLRgNC40LrQuCDQvtGCIFRyYWVmaWsg0LggRmxpZ2h0IEFwcFxu4oCiIFByb21RTCDQtNC70Y8g0LfQsNC/0YDQvtGB0L7QsiDQvNC10YLRgNC40LoiICJQcm9tZXRoZXVzLCBLdWJlcm5ldGVzLCBQcm9tUUwiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkNvbnRhaW5lciIKICAgICAgICAgICAgfQogICAgICAgICAgICAKICAgICAgICAgICAgZ3JhZmFuYSA9IGNvbnRhaW5lciAiR3JhZmFuYSIgItCS0LjQt9GD0LDQu9C40LfQsNGG0LjRjyDQvNC10YLRgNC40Log0Lgg0LTQsNGI0LHQvtGA0LTRi1xu4oCiINCf0L7RgNGCOiAzMDAwIChIVFRQKVxu4oCiIE5hbWVzcGFjZTogbW9uaXRvcmluZ1xu4oCiINCU0L7QvNC10L06IGdyYWZhbmEuY3V0ZW1peWEucnVcbuKAoiDQmNGB0YLQvtGH0L3QuNC6INC00LDQvdC90YvRhTogUHJvbWV0aGV1cyAoUHJvbVFMKVxu4oCiINCU0LDRiNCx0L7RgNC00Ysg0LTQu9GPINC80L7QvdC40YLQvtGA0LjQvdCz0LAgVHJhZWZpayDQuCDQv9GA0LjQu9C+0LbQtdC90LjRjyIgIkdyYWZhbmEsIEt1YmVybmV0ZXMiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkNvbnRhaW5lciIKICAgICAgICAgICAgfQogICAgICAgIH0KICAgICAgICAKICAgICAgICAjIEt1YmVybmV0ZXMgSW5mcmFzdHJ1Y3R1cmUg0LrQsNC6INC+0YLQtNC10LvRjNC90LDRjyDRgdC40YHRgtC10LzQsAogICAgICAgIGt1YmVybmV0ZXMgPSBzb2Z0d2FyZVN5c3RlbSAiS3ViZXJuZXRlcyBDbHVzdGVyIiAi0J7RgNC60LXRgdGC0YDQsNGC0L7RgCDQutC+0L3RgtC10LnQvdC10YDQvtCyLCDRg9C/0YDQsNCy0LvRj9GO0YnQuNC5INGA0LDQt9Cy0LXRgNGC0YvQstCw0L3QuNC10Lwg0Lgg0LzQsNGB0YjRgtCw0LHQuNGA0L7QstCw0L3QuNC10LwiICJLdWJlcm5ldGVzIiB7CiAgICAgICAgICAgIHRhZ3MgIlN5c3RlbSIKICAgICAgICAgICAgCiAgICAgICAgICAgIGs4c0luZ3Jlc3MgPSBjb250YWluZXIgIkt1YmVybmV0ZXMgSW5ncmVzcyIgItCj0L/RgNCw0LLQu9C10L3QuNC1INCy0YXQvtC00Y/RidC40Lwg0YLRgNCw0YTQuNC60L7QvCDRh9C10YDQtdC3IEluZ3Jlc3Mg0YDQtdGB0YPRgNGB0YsiICJLdWJlcm5ldGVzIEluZ3Jlc3MiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkNvbnRhaW5lciIKICAgICAgICAgICAgfQogICAgICAgICAgICAKICAgICAgICAgICAgazhzU2VydmljZSA9IGNvbnRhaW5lciAiS3ViZXJuZXRlcyBTZXJ2aWNlIiAiU2VydmljZSBkaXNjb3Zlcnkg0LggbG9hZCBiYWxhbmNpbmcg0LTQu9GPINC/0L7QtNC+0LIiICJLdWJlcm5ldGVzIFNlcnZpY2UiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkNvbnRhaW5lciIKICAgICAgICAgICAgfQogICAgICAgICAgICAKICAgICAgICAgICAgazhzSFBBID0gY29udGFpbmVyICJIb3Jpem9udGFsIFBvZCBBdXRvc2NhbGVyIiAi0JDQstGC0L7QvNCw0YLQuNGH0LXRgdC60L7QtSDQvNCw0YHRiNGC0LDQsdC40YDQvtCy0LDQvdC40LUg0L/QvtC00L7QsiDQvdCwINC+0YHQvdC+0LLQtSDQvNC10YLRgNC40LogQ1BVL01lbW9yeSIgIkt1YmVybmV0ZXMgSFBBIiB7CiAgICAgICAgICAgICAgICB0YWdzICJDb250YWluZXIiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgICAgIGs4c0RlcGxveW1lbnQgPSBjb250YWluZXIgIkt1YmVybmV0ZXMgRGVwbG95bWVudCIgItCj0L/RgNCw0LLQu9C10L3QuNC1INGA0LXQv9C70LjQutCw0LzQuCDQv9GA0LjQu9C+0LbQtdC90LjRjyAoNC03INGA0LXQv9C70LjQuikiICJLdWJlcm5ldGVzIERlcGxveW1lbnQiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkNvbnRhaW5lciIKICAgICAgICAgICAgfQogICAgICAgICAgICAKICAgICAgICAgICAgazhzU3RhdGVmdWxTZXQgPSBjb250YWluZXIgIkt1YmVybmV0ZXMgU3RhdGVmdWxTZXQiICLQo9C/0YDQsNCy0LvQtdC90LjQtSBTdGF0ZWZ1bCDQv9GA0LjQu9C+0LbQtdC90LjRj9C80LggKFBvc3RncmVTUUwpIiAiS3ViZXJuZXRlcyBTdGF0ZWZ1bFNldCIgewogICAgICAgICAgICAgICAgdGFncyAiQ29udGFpbmVyIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIAogICAgICAgICMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KICAgICAgICAjIExFVkVMIDE6IFNZU1RFTSBDT05URVhUCiAgICAgICAgIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQogICAgICAgIAogICAgICAgIHVzZXIgLT4gZmxpZ2h0U2VhcmNoU3lzdGVtICLQmNGJ0LXRgiDQsNCy0LjQsNCx0LjQu9C10YLRiyDRh9C10YDQtdC3IEdyYXBoUUwgQVBJXG7QlNC+0LzQtdC90Ys6IG1haW4uY3V0ZW1peWEucnUsIGxlYXN0LmN1dGVtaXlhLnJ1LCByYW5kb20uY3V0ZW1peWEucnUiICJIVFRQUyAoNDQzKSIKICAgICAgICBhZG1pbiAtPiBmbGlnaHRTZWFyY2hTeXN0ZW0gItCc0L7QvdC40YLQvtGA0LjRgiDRgdC40YHRgtC10LzRgyDRh9C10YDQtdC3IEdyYWZhbmFcbmdyYWZhbmEuY3V0ZW1peWEucnU6MzAwMCIgIkhUVFBTICg0NDMpIgogICAgICAgIGFkbWluIC0+IGt1YmVybmV0ZXMgItCj0L/RgNCw0LLQu9GP0LXRgiDRgNCw0LfQstC10YDRgtGL0LLQsNC90LjQtdC8INC4INC80LDRgdGI0YLQsNCx0LjRgNC+0LLQsNC90LjQtdC8XG5rdWJlY3RsIENMSSwgSFBBINC90LDRgdGC0YDQvtC50LrQuCIgImt1YmVjdGwiCiAgICAgICAgCiAgICAgICAgIyBSZWxhdGlvbnNoaXBzINC00LvRjyBDb250YWluZXIg0YPRgNC+0LLQvdGPCiAgICAgICAgdXNlciAtPiB0cmFlZmlrICLQl9Cw0L/RgNC+0YHRiyDRh9C10YDQtdC3INC00L7QvNC10L3RizpcbuKAoiBtYWluLmN1dGVtaXlhLnJ1IChSb3VuZCBSb2JpbilcbuKAoiBsZWFzdC5jdXRlbWl5YS5ydSAoTGVhc3QgVGltZSlcbuKAoiByYW5kb20uY3V0ZW1peWEucnUgKFAyQykiICJIVFRQUyAoNDQzKSIKICAgICAgICBhZG1pbiAtPiB0cmFlZmlrICLQlNC+0YHRgtGD0L8g0LogVHJhZWZpayBEYXNoYm9hcmRcbnRyYWVmaWsuY3V0ZW1peWEucnU6ODA4MCIgIkhUVFBTICg0NDMpIgogICAgICAgIHRyYWVmaWsgLT4gazhzSW5ncmVzcyAi0JzQsNGA0YjRgNGD0YLQuNC30LDRhtC40Y8g0YfQtdGA0LXQtyBLdWJlcm5ldGVzIEluZ3Jlc3Ncbm1haW4uY3V0ZW1peWEucnUgKFJvdW5kIFJvYmluKSIgIkhUVFAgKDgwKSIKICAgICAgICBrOHNJbmdyZXNzIC0+IGs4c1NlcnZpY2UgItCc0LDRgNGI0YDRg9GC0LjQt9Cw0YbQuNGPINC6IGZsaWdodC1hcHAtc2VydmljZVxuQ2x1c3RlcklQLCDQv9C+0YDRgiA4MCAtPiA0MDAwIiAiSFRUUCAoODApIgogICAgICAgIGs4c1NlcnZpY2UgLT4gd2ViQXBwbGljYXRpb24gIkxvYWQgYmFsYW5jaW5nINC80LXQttC00YMgNCDQv9C+0LTQsNC80LhcblJvdW5kIFJvYmluICjQv9C+INGD0LzQvtC70YfQsNC90LjRjikiICJIVFRQICg0MDAwKSIKICAgICAgICB3ZWJBcHBsaWNhdGlvbiAtPiBkYXRhYmFzZSAiU1FMINC30LDQv9GA0L7RgdGLINC6IFBvc3RncmVTUUxcbnBvc3RncmVzLXNlcnZpY2U6NTQzMiwg0LHQsNC30LAgZmxpZ2h0ZGIiICJQb3N0Z3JlU1FMIFByb3RvY29sICg1NDMyKSIKICAgICAgICB3ZWJBcHBsaWNhdGlvbiAtPiBwcm9tZXRoZXVzICLQrdC60YHQv9C+0YDRgiDQvNC10YLRgNC40Log0YfQtdGA0LXQtyAvbWV0cmljcyBlbmRwb2ludCIgIkhUVFAvbWV0cmljcyIKICAgICAgICBwcm9tZXRoZXVzIC0+IGdyYWZhbmEgItCf0YDQtdC00L7RgdGC0LDQstC70LXQvdC40LUg0LTQsNC90L3Ri9GFINGH0LXRgNC10LcgUHJvbVFMINC30LDQv9GA0L7RgdGLIiAiSFRUUC9Qcm9tUUwiCiAgICAgICAgYWRtaW4gLT4gZ3JhZmFuYSAi0J/RgNC+0YHQvNC+0YLRgCDQtNCw0YjQsdC+0YDQtNC+0LIg0LzQvtC90LjRgtC+0YDQuNC90LPQsFxuZ3JhZmFuYS5jdXRlbWl5YS5ydTozMDAwIiAiSFRUUFMgKDQ0MykiCiAgICAgICAgCiAgICAgICAgIyBLdWJlcm5ldGVzINC40L3RhNGA0LDRgdGC0YDRg9C60YLRg9GA0L3Ri9C1INGB0LLRj9C30LgKICAgICAgICBrOHNIUEEgLT4gazhzRGVwbG95bWVudCAi0JDQstGC0L7QvNCw0YLQuNGH0LXRgdC60L7QtSDQvNCw0YHRiNGC0LDQsdC40YDQvtCy0LDQvdC40LUiICJLdWJlcm5ldGVzIEFQSSIKICAgICAgICBrOHNEZXBsb3ltZW50IC0+IHdlYkFwcGxpY2F0aW9uICLQo9C/0YDQsNCy0LvQtdC90LjQtSDRgNC10L/Qu9C40LrQsNC80LgiICJLdWJlcm5ldGVzIgogICAgICAgIGs4c1N0YXRlZnVsU2V0IC0+IGRhdGFiYXNlICLQo9C/0YDQsNCy0LvQtdC90LjQtSBTdGF0ZWZ1bFNldCIgIkt1YmVybmV0ZXMiCiAgICAgICAgCiAgICAgICAgIyBSZWxhdGlvbnNoaXAg0LTQu9GPIENvbXBvbmVudCDRg9GA0L7QstC90Y8KICAgICAgICBkYkNvbm5lY3Rpb24gLT4gZGF0YWJhc2UgItCf0L7QtNC60LvRjtGH0LXQvdC40LUg0YfQtdGA0LXQtyDQv9GD0Lsg0YHQvtC10LTQuNC90LXQvdC40LlcbnBvc3RncmVzLXNlcnZpY2U6NTQzMi9mbGlnaHRkYiIgIlBvc3RncmVTUUwgUHJvdG9jb2wgKDU0MzIpIgogICAgICAgIAogICAgICAgICMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KICAgICAgICAjIERFUExPWU1FTlQgRU5WSVJPTk1FTlQKICAgICAgICAjID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAgICAgICAgCiAgICAgICAgcHJvZHVjdGlvbiA9IGRlcGxveW1lbnRFbnZpcm9ubWVudCAiUHJvZHVjdGlvbiIgewogICAgICAgICAgICBrdWJlcm5ldGVzQ2x1c3RlciA9IGRlcGxveW1lbnROb2RlICJLdWJlcm5ldGVzIENsdXN0ZXIiICJQcm9kdWN0aW9uIEt1YmVybmV0ZXMg0LrQu9Cw0YHRgtC10YAiICJLdWJlcm5ldGVzIiB7CiAgICAgICAgICAgICAgICB0YWdzICJEZXBsb3ltZW50Tm9kZSIKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgZmxpZ2h0U2VhcmNoTmFtZXNwYWNlID0gZGVwbG95bWVudE5vZGUgImZsaWdodC1zZWFyY2ggbmFtZXNwYWNlIiAiTmFtZXNwYWNlINC00LvRjyDQv9GA0LjQu9C+0LbQtdC90LjRjyIgIkt1YmVybmV0ZXMgTmFtZXNwYWNlIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiRGVwbG95bWVudE5vZGUiCiAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgZmxpZ2h0QXBwRGVwbG95bWVudCA9IGRlcGxveW1lbnROb2RlICJGbGlnaHQgQXBwIERlcGxveW1lbnQiICJEZXBsb3ltZW50INGBIDQtNyDRgNC10L/Qu9C40LrQsNC80LgsINGD0L/RgNCw0LLQu9GP0LXRgtGB0Y8gSFBBIiAiS3ViZXJuZXRlcyBEZXBsb3ltZW50IiB7CiAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIkRlcGxveW1lbnROb2RlIgogICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgZmxpZ2h0QXBwSW5zdGFuY2UxID0gY29udGFpbmVySW5zdGFuY2Ugd2ViQXBwbGljYXRpb24gIlBvZCAxIgogICAgICAgICAgICAgICAgICAgICAgICBmbGlnaHRBcHBJbnN0YW5jZTIgPSBjb250YWluZXJJbnN0YW5jZSB3ZWJBcHBsaWNhdGlvbiAiUG9kIDIiCiAgICAgICAgICAgICAgICAgICAgICAgIGZsaWdodEFwcEluc3RhbmNlMyA9IGNvbnRhaW5lckluc3RhbmNlIHdlYkFwcGxpY2F0aW9uICJQb2QgMyIKICAgICAgICAgICAgICAgICAgICAgICAgZmxpZ2h0QXBwSW5zdGFuY2U0ID0gY29udGFpbmVySW5zdGFuY2Ugd2ViQXBwbGljYXRpb24gIlBvZCA0IgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICBwb3N0Z3Jlc1N0YXRlZnVsU2V0ID0gZGVwbG95bWVudE5vZGUgIlBvc3RncmVTUUwgU3RhdGVmdWxTZXQiICJTdGF0ZWZ1bFNldCDQtNC70Y8g0LHQsNC30Ysg0LTQsNC90L3Ri9GFIiAiS3ViZXJuZXRlcyBTdGF0ZWZ1bFNldCIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJEZXBsb3ltZW50Tm9kZSIKICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgIHBvc3RncmVzSW5zdGFuY2UgPSBjb250YWluZXJJbnN0YW5jZSBkYXRhYmFzZSAiUG9zdGdyZVNRTCBQb2QiCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgIGZsaWdodEFwcFNlcnZpY2UgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIkZsaWdodCBBcHAgU2VydmljZSIgImZsaWdodC1hcHAtc2VydmljZTogTG9hZCBiYWxhbmNpbmcg0LTQu9GPINC/0L7QtNC+0LIg0L/RgNC40LvQvtC20LXQvdC40Y8iICJLdWJlcm5ldGVzIFNlcnZpY2UiCiAgICAgICAgICAgICAgICAgICAgcG9zdGdyZXNTZXJ2aWNlID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJQb3N0Z3JlU1FMIFNlcnZpY2UiICJwb3N0Z3Jlcy1zZXJ2aWNlOiBTZXJ2aWNlIGRpc2NvdmVyeSDQtNC70Y8gUG9zdGdyZVNRTCIgIkt1YmVybmV0ZXMgU2VydmljZSIKICAgICAgICAgICAgICAgICAgICBmbGlnaHRBcHBJbmdyZXNzID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJGbGlnaHQgQXBwIEluZ3Jlc3MiICJmbGlnaHQtYXBwLWluZ3Jlc3M6INCc0LDRgNGI0YDRg9GC0LjQt9Cw0YbQuNGPINCy0YXQvtC00Y/RidC10LPQviDRgtGA0LDRhNC40LrQsCIgIkt1YmVybmV0ZXMgSW5ncmVzcyIKICAgICAgICAgICAgICAgICAgICBmbGlnaHRBcHBIUEEgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIkZsaWdodCBBcHAgSFBBIiAiZmxpZ2h0LWFwcC1ocGE6INCQ0LLRgtC+0LzQsNGB0YjRgtCw0LHQuNGA0L7QstCw0L3QuNC1IDQtNyDRgNC10L/Qu9C40LoiICJLdWJlcm5ldGVzIEhQQSIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgdHJhZWZpa05hbWVzcGFjZSA9IGRlcGxveW1lbnROb2RlICJ0cmFlZmlrIG5hbWVzcGFjZSIgIk5hbWVzcGFjZSDQtNC70Y8gVHJhZWZpayIgIkt1YmVybmV0ZXMgTmFtZXNwYWNlIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiRGVwbG95bWVudE5vZGUiCiAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgdHJhZWZpa0RlcGxveW1lbnQgPSBkZXBsb3ltZW50Tm9kZSAiVHJhZWZpayBEZXBsb3ltZW50IiAiVHJhZWZpayBJbmdyZXNzIENvbnRyb2xsZXIiICJLdWJlcm5ldGVzIERlcGxveW1lbnQiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGFncyAiRGVwbG95bWVudE5vZGUiCiAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICB0cmFlZmlrSW5zdGFuY2UgPSBjb250YWluZXJJbnN0YW5jZSB0cmFlZmlrICJUcmFlZmlrIFBvZCIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgIG1vbml0b3JpbmdOYW1lc3BhY2UgPSBkZXBsb3ltZW50Tm9kZSAibW9uaXRvcmluZyBuYW1lc3BhY2UiICJOYW1lc3BhY2Ug0LTQu9GPINC80L7QvdC40YLQvtGA0LjQvdCz0LAiICJLdWJlcm5ldGVzIE5hbWVzcGFjZSIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgIkRlcGxveW1lbnROb2RlIgogICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgIHByb21ldGhldXNEZXBsb3ltZW50ID0gZGVwbG95bWVudE5vZGUgIlByb21ldGhldXMgRGVwbG95bWVudCIgIlByb21ldGhldXMg0LTQu9GPINGB0LHQvtGA0LAg0LzQtdGC0YDQuNC6IiAiS3ViZXJuZXRlcyBEZXBsb3ltZW50IiB7CiAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIkRlcGxveW1lbnROb2RlIgogICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgcHJvbWV0aGV1c0luc3RhbmNlID0gY29udGFpbmVySW5zdGFuY2UgcHJvbWV0aGV1cyAiUHJvbWV0aGV1cyBQb2QiCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgIGdyYWZhbmFEZXBsb3ltZW50ID0gZGVwbG95bWVudE5vZGUgIkdyYWZhbmEgRGVwbG95bWVudCIgIkdyYWZhbmEg0LTQu9GPINCy0LjQt9GD0LDQu9C40LfQsNGG0LjQuCIgIkt1YmVybmV0ZXMgRGVwbG95bWVudCIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJEZXBsb3ltZW50Tm9kZSIKICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgIGdyYWZhbmFJbnN0YW5jZSA9IGNvbnRhaW5lckluc3RhbmNlIGdyYWZhbmEgIkdyYWZhbmEgUG9kIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgIH0KICAgICAgICAKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQogICAgICAgICMgTEVWRUwgMTogU1lTVEVNIENPTlRFWFQgRElBR1JBTQogICAgICAgICMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KICAgICAgICBzeXN0ZW1Db250ZXh0IGZsaWdodFNlYXJjaFN5c3RlbSAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgICAgICB0aXRsZSAiTGV2ZWwgMTogU3lzdGVtIENvbnRleHQgLSBGbGlnaHQgU2VhcmNoIFN5c3RlbSIKICAgICAgICAgICAgZGVzY3JpcHRpb24gItCa0L7QvdGC0LXQutGB0YIg0YHQuNGB0YLQtdC80Ysg0YEg0LDQutGC0L7RgNCw0LzQuDog0J/QvtC70YzQt9C+0LLQsNGC0LXQu9GMICjQv9C+0LjRgdC6INCx0LjQu9C10YLQvtCyKSwg0JDQtNC80LjQvdC40YHRgtGA0LDRgtC+0YAgKNC80L7QvdC40YLQvtGA0LjQvdCzKSIKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQogICAgICAgICMgTEVWRUwgMjogQ09OVEFJTkVSIERJQUdSQU0KICAgICAgICAjID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAgICAgICAgY29udGFpbmVyIGZsaWdodFNlYXJjaFN5c3RlbSAiQ29udGFpbmVycyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgICAgICB0aXRsZSAiTGV2ZWwgMjogQ29udGFpbmVyIERpYWdyYW0gLSBGbGlnaHQgU2VhcmNoIFN5c3RlbSIKICAgICAgICAgICAgZGVzY3JpcHRpb24gItCa0L7QvdGC0LXQudC90LXRgNGLOiBGbGlnaHQgQXBwICg0INC/0L7QtNCwLCDQv9C+0YDRgiA0MDAwKSwgUG9zdGdyZVNRTCAoNTQzMiksIFRyYWVmaWsgKDgwLzQ0My84MDgwKSwgUHJvbWV0aGV1cywgR3JhZmFuYSAoMzAwMCkiCiAgICAgICAgfQogICAgICAgIAogICAgICAgICMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KICAgICAgICAjIExFVkVMIDM6IENPTVBPTkVOVCBESUFHUkFNCiAgICAgICAgIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQogICAgICAgIGNvbXBvbmVudCB3ZWJBcHBsaWNhdGlvbiAiQ29tcG9uZW50cyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgICAgICB0aXRsZSAiTGV2ZWwgMzogQ29tcG9uZW50IERpYWdyYW0gLSBGbGlnaHQgU2VhcmNoIEFwcGxpY2F0aW9uIgogICAgICAgICAgICBkZXNjcmlwdGlvbiAi0JrQvtC80L/QvtC90LXQvdGC0Ys6IEV4cHJlc3MgU2VydmVyLCBHcmFwaFFMIFNjaGVtYSAoL2dyYXBocWwpLCBSZXNvbHZlcnMsIE9mZmVyIE1vZGVsLCBEYXRhYmFzZSBDb25uZWN0aW9uIFBvb2wiCiAgICAgICAgfQogICAgICAgIAogICAgICAgICMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KICAgICAgICAjIERFUExPWU1FTlQgVklFVyAoS3ViZXJuZXRlcyBJbmZyYXN0cnVjdHVyZSkKICAgICAgICAjID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAgICAgICAgZGVwbG95bWVudCBmbGlnaHRTZWFyY2hTeXN0ZW0gcHJvZHVjdGlvbiAiUHJvZHVjdGlvbkRlcGxveW1lbnQiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQgbHIKICAgICAgICAgICAgdGl0bGUgIkRlcGxveW1lbnQgVmlldyAtIEt1YmVybmV0ZXMgUHJvZHVjdGlvbiBFbnZpcm9ubWVudCIKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgIyDQodGC0LjQu9C4INC00LvRjyDRg9C70YPRh9GI0LXQvdC40Y8g0LLQuNC30YPQsNC70LjQt9Cw0YbQuNC4CiAgICAgICAgc3R5bGVzIHsKICAgICAgICAgICAgZWxlbWVudCAiUGVyc29uIiB7CiAgICAgICAgICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgICAgICAgICAgICBzaGFwZSBQZXJzb24KICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJTeXN0ZW0iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzExNjhiZAogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkNvbnRhaW5lciIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjNDM4ZGQ1CiAgICAgICAgICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiQ29tcG9uZW50IiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICM4NWJiZjAKICAgICAgICAgICAgICAgIGNvbG9yICMwMDAwMDAKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgQ3lsaW5kZXIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzQzOGRkNQogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkRlcGxveW1lbnROb2RlIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICM5OTk5OTkKICAgICAgICAgICAgICAgIGNvbG9yICNmZmZmZmYKICAgICAgICAgICAgICAgIHNoYXBlIEJveAogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQogICAgCn0="
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "4",
+      "description" : "Компоненты: Express Server, GraphQL Schema (/graphql), Resolvers, Offer Model, Database Connection Pool",
+      "dimensions" : {
+        "height" : 1543,
+        "width" : 3910
+      },
+      "elements" : [ {
+        "id" : "5",
+        "x" : 240,
+        "y" : 487
+      }, {
+        "id" : "6",
+        "x" : 990,
+        "y" : 787
+      }, {
+        "id" : "7",
+        "x" : 990,
+        "y" : 187
+      }, {
+        "id" : "8",
+        "x" : 1740,
+        "y" : 187
+      }, {
+        "id" : "9",
+        "x" : 2490,
+        "y" : 187
+      }, {
+        "id" : "14",
+        "x" : 3240,
+        "y" : 187
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "Components",
+      "name" : "Component View: Flight Search System - Flight Search Application",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "10"
+      }, {
+        "id" : "11"
+      }, {
+        "id" : "12"
+      }, {
+        "id" : "13"
+      }, {
+        "id" : "48"
+      } ],
+      "title" : "Level 3: Component Diagram - Flight Search Application"
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "Components",
+      "metadataSymbols" : "SquareBrackets",
+      "styles" : {
+        "elements" : [ {
+          "background" : "#85bbf0",
+          "color" : "#000000",
+          "tag" : "Component"
+        }, {
+          "background" : "#438dd5",
+          "color" : "#ffffff",
+          "tag" : "Container"
+        }, {
+          "background" : "#438dd5",
+          "color" : "#ffffff",
+          "shape" : "Cylinder",
+          "tag" : "Database"
+        }, {
+          "background" : "#999999",
+          "color" : "#ffffff",
+          "shape" : "Box",
+          "tag" : "DeploymentNode"
+        }, {
+          "color" : "#ffffff",
+          "shape" : "Person",
+          "tag" : "Person"
+        }, {
+          "background" : "#1168bd",
+          "color" : "#ffffff",
+          "tag" : "System"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Контейнеры: Flight App (4 пода, порт 4000), PostgreSQL (5432), Traefik (80/443/8080), Prometheus, Grafana (3000)",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "18",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "Containers",
+      "name" : "Container View: Flight Search System",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "26"
+      }, {
+        "id" : "27"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "30"
+      }, {
+        "id" : "36"
+      }, {
+        "id" : "38"
+      }, {
+        "id" : "39"
+      }, {
+        "id" : "40"
+      }, {
+        "id" : "41"
+      }, {
+        "id" : "47"
+      } ],
+      "softwareSystemId" : "3",
+      "title" : "Level 2: Container Diagram - Flight Search System"
+    } ],
+    "deploymentViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "49",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "51",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "52",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "53",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "54",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "55",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "56",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "57",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "62",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "63",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "64",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "65",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "66",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "67",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "68",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "69",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "70",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "71",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "76",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "77",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "environment" : "Production",
+      "key" : "ProductionDeployment",
+      "name" : "Deployment View: Flight Search System - Production",
+      "order" : 4,
+      "relationships" : [ {
+        "id" : "58"
+      }, {
+        "id" : "59"
+      }, {
+        "id" : "60"
+      }, {
+        "id" : "61"
+      }, {
+        "id" : "72"
+      }, {
+        "id" : "73"
+      }, {
+        "id" : "74"
+      }, {
+        "id" : "75"
+      }, {
+        "id" : "78"
+      } ],
+      "softwareSystemId" : "3",
+      "title" : "Deployment View - Kubernetes Production Environment"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Контекст системы с акторами: Пользователь (поиск билетов), Администратор (мониторинг)",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "18",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemContext",
+      "name" : "System Context View: Flight Search System",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "24"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "26"
+      }, {
+        "id" : "32"
+      }, {
+        "id" : "37"
+      } ],
+      "softwareSystemId" : "3",
+      "title" : "Level 1: System Context - Flight Search System"
+    } ]
+  }
+}

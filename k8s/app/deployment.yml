@@ -59,15 +59,4 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "200m"
-        # Антиаффинити - распределяем поды по разным нодам
-        # (если несколько worker нод в k3s)
-        # affinity:
-        #   podAntiAffinity:
-        #     preferredDuringSchedulingIgnoredDuringExecution:
-        #     - weight: 100
-        #       podAffinityTerm:
-        #         labelSelector:
-        #           matchLabels:
-        #             app: flight-app
-        #         topologyKey: kubernetes.io/hostname
 
