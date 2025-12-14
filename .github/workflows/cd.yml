@@ -6,35 +6,35 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: self-hosted  
+    runs-on: self-hosted
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
     
-    - name: Build Docker image
+    - name: Setup Docker Buildx
       run: |
-        docker build -t flight-search-app:latest .
+        docker buildx version || echo "Buildx не установлен"
+        
+        DOCKER_BUILDKIT=1 docker build -t flight-search-app:latest .
+      env:
+        DOCKER_BUILDKIT: 1
     
-    - name: Tag and push to registry
+    - name: Build with BuildKit
+      run: |
+        DOCKER_BUILDKIT=1 docker build \
+          -t flight-search-app:latest \
+          --progress=plain \
+          .
+    
+    - name: Tag and push
       run: |
         docker tag flight-search-app:latest registry.cutemiya.ru/flight-search-app:latest
         docker push registry.cutemiya.ru/flight-search-app:latest
     
-    - name: Deploy to k3s
+    - name: Deploy
       run: |
         kubectl set image deployment/flight-app \
           flight-app=registry.cutemiya.ru/flight-search-app:latest \
           -n flight-search
-        
-        kubectl rollout status deployment/flight-app \
-          -n flight-search \
-          --timeout=300s
-        
-        echo "Текущий образ в deployment:"
-        kubectl get deployment/flight-app -n flight-search \
-          -o jsonpath='{.spec.template.spec.containers[0].image}'
-        echo ""
-        
-        echo "Статус подов:"
-        kubectl get pods -n flight-search -l app=flight-app
+        kubectl rollout status deployment/flight-app -n flight-search --timeout=300s
