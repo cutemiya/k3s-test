@@ -19,14 +19,7 @@ jobs:
         DOCKER_BUILDKIT=1 docker build -t flight-search-app:latest .
       env:
         DOCKER_BUILDKIT: 1
-    
-    - name: Build with BuildKit
-      run: |
-        DOCKER_BUILDKIT=1 docker build \
-          -t flight-search-app:latest \
-          --progress=plain \
-          .
-    
+
     - name: Tag and push
       run: |
         docker tag flight-search-app:latest registry.cutemiya.ru/flight-search-app:latest
